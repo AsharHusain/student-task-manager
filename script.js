@@ -29,7 +29,37 @@ function addTask() {
     input.focus();
 }
 
+function setTheme(theme) {
+    const isDark = theme === "dark";
+    document.documentElement.dataset.theme = isDark ? "dark" : "light";
+
+    const toggle = document.getElementById("themeToggle");
+    toggle.setAttribute("aria-pressed", String(isDark));
+    toggle.setAttribute("aria-label", `Switch to ${isDark ? "light" : "dark"} mode`);
+    toggle.querySelector(".theme-toggle-icon").textContent = isDark ? "☀" : "☾";
+    toggle.querySelector(".theme-toggle-label").textContent = isDark ? "Light mode" : "Dark mode";
+    document.querySelector('meta[name="theme-color"]').setAttribute("content", isDark ? "#111827" : "#f5f7fb");
+}
+
 if (typeof document !== "undefined") {
+    const themeToggle = document.getElementById("themeToggle");
+    let savedTheme = "light";
+    try {
+        savedTheme = localStorage.getItem("student-task-manager-theme") || "light";
+    } catch (error) {
+        // The toggle still works when browser storage is unavailable.
+    }
+    setTheme(savedTheme);
+    themeToggle.addEventListener("click", function () {
+        const nextTheme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+        setTheme(nextTheme);
+        try {
+            localStorage.setItem("student-task-manager-theme", nextTheme);
+        } catch (error) {
+            // Keep the selected theme for this page even when it cannot be saved.
+        }
+    });
+
     document.getElementById("taskForm").addEventListener("submit", function (event) {
         event.preventDefault();
         addTask();
