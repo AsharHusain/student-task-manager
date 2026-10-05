@@ -11,16 +11,29 @@ function addTask() {
     }
 
     const li = document.createElement("li");
-
-    li.textContent = taskText;
-
-    li.onclick = function () {
-        li.classList.toggle("completed");
-    };
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "task-item";
+    button.textContent = taskText;
+    button.setAttribute("aria-pressed", "false");
+    button.addEventListener("click", function () {
+        const completed = li.classList.toggle("completed");
+        button.setAttribute("aria-pressed", String(completed));
+    });
+    li.appendChild(button);
 
     document.getElementById("taskList").appendChild(li);
+    document.getElementById("emptyState").hidden = true;
 
     input.value = "";
+    input.focus();
+}
+
+if (typeof document !== "undefined") {
+    document.getElementById("taskForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+        addTask();
+    });
 }
 
 if (typeof module !== "undefined") {

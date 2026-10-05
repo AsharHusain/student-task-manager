@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f7fb">
+    <title>Student Task Manager</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <main class="container">
+        <header class="page-header">
+            <p class="eyebrow">STAY ON TRACK</p>
+            <h1>Student Task Manager</h1>
+            <p class="subtitle">Keep your assignments and study goals in one place.</p>
+        </header>
+
+        <form class="task-form" id="taskForm">
+            <label class="visually-hidden" for="taskInput">New task</label>
+            <input id="taskInput" name="task" type="text" placeholder="What do you need to do?" autocomplete="off">
+            <button type="submit">Add task</button>
+        </form>
+
+        <section class="tasks" aria-labelledby="tasksHeading">
+            <div class="tasks-heading">
+                <h2 id="tasksHeading">Your tasks</h2>
+                <span class="hint">Select a task to mark it done</span>
+            </div>
+            <ul id="taskList" aria-live="polite" aria-relevant="additions"></ul>
+            <p class="empty-state" id="emptyState">No tasks yet. Add one above to get started.</p>
+        </section>
+    </main>
+</body>
+</html>
